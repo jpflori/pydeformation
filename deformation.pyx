@@ -178,8 +178,9 @@ def deformation(f, t, verbose = True):
     frob_ret(cp, fmpoly, ctxFracQt, t1, Qq, &prec, NULL, verbose)
     sig_off()
     ret = 0
+    # make sure nt to ovewrite zero...
+    cint = ZZ().__new__(type(ZZ()))
     x = polygen(ZZ)
-    cint = ZZ(0)
     mpz_init(cmpz)
     for i in range(fmpz_poly_degree(cp)+1):
         fmpz_poly_get_coeff_mpz(cmpz, cp, i)
