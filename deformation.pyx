@@ -28,78 +28,13 @@ from sage.rings.rational cimport Rational
 from sage.libs.gmp.types cimport mpz_t, mpq_t
 from sage.libs.gmp.mpz cimport mpz_init, mpz_clear
 from sage.libs.gmp.mpq cimport mpq_numref
-from sage.libs.flint.types cimport fmpz_t, fmpz_poly_t, fmpz_poly_struct
+from sage.libs.flint.types cimport *
 from sage.libs.flint.fmpz cimport fmpz_init, fmpz_clear, fmpz_zero, fmpz_one, fmpz_set_mpz
 from sage.libs.flint.fmpz_poly cimport fmpz_poly_init, fmpz_poly_clear, fmpz_poly_one, fmpz_poly_zero, fmpz_poly_set_coeff_mpz, fmpz_poly_get_coeff_mpz, fmpz_poly_degree
-
-cdef extern from "flint/padic.h":
-    ctypedef struct padic_struct:
-        pass
-
-    ctypedef padic_struct padic_t[1]
-
-    cdef enum padic_print_mode:
-        PADIC_TERSE
-        PADIC_SERIES
-        PADIC_VAL_UNIT
-
-    ctypedef struct padic_ctx_struct:
-        pass
-
-    ctypedef padic_ctx_struct padic_ctx_t[1]
-
-    void padic_ctx_init(padic_ctx_t ctx, const fmpz_t p, long min, long max, 
-                        long mode)
-
-    void padic_init(padic_t)
-    void padic_clear(padic_t)
-
-    void padic_set_fmpz(padic_t rop, const fmpz_t op, const padic_ctx_t ctx)
-    void padic_set_mpz(padic_t rop, const mpz_t op, const padic_ctx_t ctx)
-
-cdef extern from "flint/padic_poly.h":
-    ctypedef struct padic_poly_struct:
-        pass
-
-    ctypedef padic_poly_struct padic_poly_t[1]
-
-    void padic_poly_set_coeff_padic(padic_poly_t f, long n, const padic_t c, 
-                                    const padic_ctx_t ctx)
-
-cdef extern from "flint/qadic.h":
-    ctypedef struct qadic_ctx_struct:
-        pass
-
-    ctypedef qadic_ctx_struct qadic_ctx_t[1]
-
-    void qadic_ctx_init_conway(qadic_ctx_t ctx, 
-                          const fmpz_t p, long d, long min, long max, 
-                          const char *var, int mode)
-    void qadic_ctx_clear(qadic_ctx_t)
-
-    ctypedef padic_poly_struct qadic_struct
-    ctypedef padic_poly_t qadic_t
-
-    void qadic_init(qadic_t)
-    void qadic_clear(qadic_t)
-    void qadic_zero(qadic_t)
-
-cdef extern from "flint/fmpz_poly_q.h":
-    ctypedef struct fmpz_poly_q_struct:
-        pass
-
-    ctypedef fmpz_poly_q_struct fmpz_poly_q_t[1]
-
-    void fmpz_poly_q_init(fmpz_poly_q_t)
-    void fmpz_poly_q_clear(fmpz_poly_q_t)
-
-    void fmpz_poly_q_zero(fmpz_poly_q_t)
-    void fmpz_poly_q_one(fmpz_poly_q_t)
-
-    fmpz_poly_struct* fmpz_poly_q_numref(fmpz_poly_q_t)
-    fmpz_poly_struct* fmpz_poly_q_denref(fmpz_poly_q_t)
-
-    void fmpz_poly_q_print_pretty(fmpz_poly_q_t, char*)
+from sage.libs.flint.fmpz_poly_q cimport *
+from sage.libs.flint.padic cimport *
+from sage.libs.flint.padic_poly cimport *
+from sage.libs.flint.qadic cimport *
 
 cdef extern from "deformation/generics.h":
     ctypedef struct __ctx_struct:
