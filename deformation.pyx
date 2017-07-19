@@ -179,7 +179,8 @@ def deformation(f, t, verbose = True):
     sig_off()
     ret = 0
     # make sure nt to ovewrite zero...
-    cint = ZZ().__new__(type(ZZ()))
+    cint = Integer()
+    #ZZ().__new__(type(ZZ()))
     x = polygen(ZZ)
     mpz_init(cmpz)
     for i in range(fmpz_poly_degree(cp)+1):
