@@ -1,16 +1,16 @@
-all: cythonized
+PYTHON = python
+PIP = $(PYTHON) -m pip -v
 
-sage_local:
-	@if [ -z $(SAGE_LOCAL) ]; then echo "make should be run from within a Sage shell" >&2; exit 1; fi
+all: build
 
-CYTHON_SOURCES = $(wildcard *.pyx) $(wildcard *.pxd)
+build:
+	$(PYTHON) setup.py build_ext
 
-cythonized: $(CYTHON_SOURCES)
-	python setup.py build_ext
-	cp cythonized/lib.*/*.so ./
+install:
+	$(PIP) install --no-index --ignore-installed .
 
 clean:
-	rm -rf cythonized
-	rm -rf *.so
+	rm -rf build
+	rm -rf src/pydeformation/*.c
 
-.PHONY: clean sage_local 
+.PHONY: all build install clean

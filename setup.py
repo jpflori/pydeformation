@@ -1,12 +1,32 @@
-from distutils.core import setup
-from distutils.extension import Extension
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys, os
+opj = os.path.join
+
+from setuptools import setup
+from setuptools.extension import Extension
 from Cython.Build import cythonize
-from sage.env import SAGE_ENV, sage_include_directories
+from sage.env import sage_include_directories
+
+cythonize_dir = "build"
+
+kwds = {"include_dirs": sage_include_directories()}
 
 extensions = [
-              Extension("*", sources = ["*.pyx"],
-                        include_dirs = sage_include_directories() + [SAGE_ENV['SAGE_INC'] + '/flint'])
-             ]
+    Extension("pydeformation.deformation", ["src/pydeformation/deformation.pyx"], **kwds)
+]
+
 setup(
-    ext_modules = cythonize(extensions, include_path=SAGE_ENV['SITE_PACKAGES'] + ['.'], build_dir='cythonized')
+    name="pydeformation",
+    author=u"Edgar Costa, Jean-Pierre Flori",
+    author_email="sage-devel@googlegroups.com",
+    url="https://github.com/jpflori/pydeformation",
+    license="GNU Lesser General Public License, version 3 or later",
+    description="Wrapper for deformation library",
+    setup_requires=["cython"],
+    ext_modules = cythonize(extensions),
+    packages=["pydeformation"],
+    package_dir={"pydeformation": opj("src", "pydeformation")},
+    package_data={"pydeformation": ["*.pxd"]},
 )
