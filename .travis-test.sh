@@ -5,6 +5,6 @@
 # without any warranty.
 set -e
 cd $HOME
-SageMath/sage -pip install --user --upgrade -v -i https://pypi.python.org/pypi SageMath # Check that Sage is installed
+SageMath/sage -pip install --user --upgrade -v -i https://pypi.python.org/pypi sagemath # Check that Sage is installed
 SageMath/sage setup.py test
 (cd docs && $HOME/SageMath/sage -sh -c "make html")
