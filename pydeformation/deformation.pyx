@@ -43,7 +43,10 @@ def deformation(f, t0, verbose = True):
     Output:
         The characteristic polynomial of Frobenius acting on the $n$-th cohomology group of the complement of the hypersurface defined by f(t = t_0) over F_q.
     
-    Examples:
+    Examples::
+
+    sage: from pydeformation import deformation
+
     sage: R.<t> = QQ[]
     sage: S = R.fraction_field()
     sage: T.<x0, x1, x2> = S[]
@@ -63,7 +66,6 @@ def deformation(f, t0, verbose = True):
     sage: K = GF(p,modulus=conway_polynomial(p,1))
     sage: K.is_conway= lambda : True
     sage: t0 = K(1)
-    sage: 
     sage: deformation(f, t0, verbose = False)
         6321363049*x^6 + 441025329*x^5 + 20512806*x^4 + 556549*x^3 + 11094*x^2 + 129*x + 1
 
@@ -77,8 +79,6 @@ def deformation(f, t0, verbose = True):
     sage: t0 = K(1)
     sage: deformation(f, t0, verbose = False)
     -20083415214428110320965436874242043*x^21 + 119479484780264582763991241544977*x^20 + 100534534762252228203104681046302*x^19 - 834165241103179642680896617306*x^18 - 225003300376177017932433136047*x^17 + 2487646096419799283278902381*x^16 + 296132512235307123091919592*x^15 - 4247548915225822821120696*x^14 - 253423978516239259535142*x^13 + 4644610109877171089586*x^12 + 147044525659586030196*x^11 - 3419640131618279772*x^10 - 58417624987449798*x^9 + 1723873631640594*x^8 + 15626409457128*x^7 - 589209839544*x^6 - 2676921183*x^5 + 130948029*x^4 + 262558*x^3 - 17114*x^2 - 11*x + 1
-
-    
     """
     # Only Z_p/QQ(t) for hypersurface definition.
     cdef ctx_t ctxFracQt

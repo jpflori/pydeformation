@@ -1,16 +1,45 @@
-PYTHON = python
-PIP = $(PYTHON) -m pip -v
+# This Makefile is for convenience as a reminder and shortcut for the most used commands
 
-all: build
+# Package folder
+PACKAGE = pydeformation
+
+# change to your sage command if needed
+SAGE = sage
+
+all: install test
 
 build:
-	$(PYTHON) setup.py build_ext
+	$(SAGE) setup.py build_ext
 
 install:
-	$(PIP) install --no-index --ignore-installed .
+	$(SAGE) setup.py install
 
-clean:
-	rm -rf build
-	rm -rf src/pydeformation/*.c
+pip-install:
+	$(SAGE) -pip install --upgrade --no-index -v .
 
-.PHONY: all build install clean
+pip-uninstall:
+	$(SAGE) -pip uninstall .
+
+pip-develop:
+	$(SAGE) -pip install --upgrade -e .
+
+test:
+	$(SAGE) setup.py test
+
+coverage:
+	$(SAGE) -coverage $(PACKAGE)/*
+
+doc:
+	cd docs && $(SAGE) -sh -c "make html"
+
+doc-pdf:
+	cd docs && $(SAGE) -sh -c "make latexpdf"
+
+clean: clean-doc
+	rm -rf build dist *.egg-info
+	rm -rf $(PACKAGE)/*.c
+
+clean-doc:
+	cd docs && $(SAGE) -sh -c "make clean"
+
+.PHONY: all build install test coverage pip-install pip-uninstall pip-develop clean clean-doc doc doc-pdf

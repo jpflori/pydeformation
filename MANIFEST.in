@@ -1,0 +1,4 @@
+prune pydeformation
+include VERSION
+include pydeformation/*.pyx
+include pydeformation/*.pxd
