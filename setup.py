@@ -8,7 +8,7 @@ from codecs import open # To open the README file with proper encoding
 from setuptools.command.test import test as TestCommand # for tests
 from setuptools.extension import Extension
 from Cython.Build import cythonize
-from sage.env import sage_include_directories
+from sage.env import sage_include_directories, SAGE_LOCAL
 
 # Get information from separate files (README, VERSION)
 def readfile(filename):
@@ -21,6 +21,10 @@ class SageTest(TestCommand):
         errno = os.system("sage -t --force-lib pydeformation")
         if errno != 0:
             sys.exit(1)
+
+if not os.path.isfile(os.path.join(SAGE_LOCAL, "include", "deformation", "deformation.h")):
+    print("The deformation library is not installed.")
+    sys.exit(1)
 
 cythonize_dir = "build"
 
@@ -51,8 +55,8 @@ setup(
       'Programming Language :: Python :: 2.7',
     ], # classifiers list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords = "sagemath deformation",
-    setup_requires=["cython"],
-    install_requires = ["sagemath"],
+    setup_requires=["cython", "sagemath"],
+    install_requires=["sagemath"],
     ext_modules = cythonize(extensions),
     packages=["pydeformation"],
     include_package_data = True,
