@@ -23,6 +23,9 @@ pip-uninstall:
 pip-develop:
 	$(SAGE) -pip install --upgrade -e .
 
+sdist:
+	$(SAGE) setup.py sdist
+
 test:
 	$(SAGE) setup.py test
 
@@ -42,4 +45,4 @@ clean: clean-doc
 clean-doc:
 	cd docs && $(SAGE) -sh -c "make clean"
 
-.PHONY: all build install test coverage pip-install pip-uninstall pip-develop clean clean-doc doc doc-pdf
+.PHONY: all build install test coverage sdist pip-install pip-uninstall pip-develop clean clean-doc doc doc-pdf
