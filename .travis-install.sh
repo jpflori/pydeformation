@@ -6,14 +6,14 @@
 set -e
 SAGE_IMAGE=`python2 -c "import sage_version; print sage_version.get_all_version_names('${SAGE_SERVER}index.html',${SAGE_AGE})"`
 cd $HOME
-if [ ! -x sagemath/sage ] ; then 
-    rm -f sagemath.tar.bz2
-    wget ${SAGE_SERVER}${SAGE_IMAGE} -O sagemath.tar.bz2
-    tar xf sagemath.tar.bz2
+if [ ! -x SageMath/sage ] ; then 
+    rm -f SageMath.tar.bz2
+    wget ${SAGE_SERVER}${SAGE_IMAGE} -O SageMath.tar.bz2
+    tar xf SageMath.tar.bz2
 fi
 MAKE="make -j4"
 export MAKE
 # Install packages
-sagemath/sage -i deformation
+SageMath/sage -i deformation
 # To initialize matplotlib font manager
-sagemath/sage -python -c 'import matplotlib.pyplot'
+SageMath/sage -python -c 'import matplotlib.pyplot'
