@@ -171,7 +171,7 @@ def deformation(f, t0, verbose = False):
     fmpz_poly_init(cp)
     fmpz_poly_zero(cp)
     sig_on()
-    frob_ret(cp, fmpoly, ctxFracQt, t1, Qq, &prec, NULFalsverbose)
+    frob_ret(cp, fmpoly, ctxFracQt, t1, Qq, &prec, NULL, verbose)
     sig_off()
     ret = 0
     # make sure nt to ovewrite zero...

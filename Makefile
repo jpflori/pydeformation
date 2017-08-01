@@ -24,10 +24,10 @@ pip-develop:
 	$(SAGE) -pip install --upgrade -e .
 
 sdist:
-	$(SAGE) setup.py sdist
+	$(SAGE) -python setup.py sdist
 
 test:
-	$(SAGE) setup.py test
+	$(SAGE) -python setup.py test
 
 coverage:
 	$(SAGE) -coverage $(PACKAGE)/*

@@ -55,8 +55,7 @@ setup(
       'Programming Language :: Python :: 2.7',
     ], # classifiers list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords = "sagemath deformation",
-    setup_requires=["cython", "sagemath"],
-    install_requires=["sagemath"],
+    install_requires=["cython", "sagemath"],
     ext_modules = cythonize(extensions),
     packages=["pydeformation"],
     include_package_data = True,
