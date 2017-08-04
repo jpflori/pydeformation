@@ -7,8 +7,8 @@ from setuptools import setup
 from codecs import open # To open the README file with proper encoding
 from setuptools.command.test import test as TestCommand # for tests
 from setuptools.extension import Extension
-from Cython.Build import cythonize
 from sage.env import sage_include_directories, SAGE_LOCAL
+from Cython.Build import cythonize
 
 # Get information from separate files (README, VERSION)
 def readfile(filename):
@@ -55,9 +55,12 @@ setup(
       'Programming Language :: Python :: 2.7',
     ], # classifiers list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords = "sagemath deformation",
+    setup_requires=["cython", "sagemath"], # currently useless, see https://www.python.org/dev/peps/pep-0518/
     install_requires=["cython", "sagemath"],
-    ext_modules = cythonize(extensions),
     packages=["pydeformation"],
     include_package_data = True,
+    ext_modules = cythonize(extensions),
     cmdclass = {'test': SageTest} # adding a special setup command for tests
+    #ext_modules = extensions,
+    #cmdclass = {'test': SageTest, 'build_ext': Cython.Build.build_ext} # adding a special setup command for tests and build_ext
 )

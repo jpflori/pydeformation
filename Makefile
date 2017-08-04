@@ -9,10 +9,16 @@ SAGE = sage
 all: install test
 
 build:
-	$(SAGE) setup.py build_ext
+	$(SAGE) -python setup.py build_ext
 
 install:
-	$(SAGE) setup.py install
+	$(SAGE) -python setup.py install
+
+sdist:
+	$(SAGE) -python setup.py sdist
+
+test:
+	$(SAGE) -python setup.py test
 
 pip-install:
 	$(SAGE) -pip install --upgrade --no-index -v .
@@ -22,12 +28,6 @@ pip-uninstall:
 
 pip-develop:
 	$(SAGE) -pip install --upgrade -e .
-
-sdist:
-	$(SAGE) -python setup.py sdist
-
-test:
-	$(SAGE) -python setup.py test
 
 coverage:
 	$(SAGE) -coverage $(PACKAGE)/*
@@ -43,6 +43,6 @@ clean: clean-doc
 	rm -rf $(PACKAGE)/*.c
 
 clean-doc:
-	cd docs && $(SAGE) -sh -c "make clean"
+	cd docs && make clean
 
 .PHONY: all build install test coverage sdist pip-install pip-uninstall pip-develop clean clean-doc doc doc-pdf
